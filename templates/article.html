@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Article
+{% endblock %}
+
+{% block main %}
+    <h2 class="pagetitle">{{ article['title'] }}</h2>
+    <div class="article-info">Barked by {{ article['username'] }} on <span class="news-date">{{ article["date"] }}</span></div>
+
+    {% if article["image"] %}<img src='static/images/{{ article["image"] }}' class="article-img" alt={{ article["title"] }} />{% endif %}
+    <div class="article-text">{{ article['text'] }}</div>
+
+
+    <div class="article-category">Category: <a href='category?id={{article['category_id_article']}}'> {{ article['category_title'] }}</a></div>
+
+    {% if showMessage %}
+        <div class="alert" role="alert">Your comment is successfully added!</div>
+    {% endif %}
+
+    <div class="comments">
+        <h3>Comments</h3>
+        {% if comments %}
+            <ul class="comments-list">
+                {% for row in comments %}
+                    <li>
+                        {{ row["text_comment"] }}
+                        <div class="comment-info">
+                            Barked by  {{ row["author_comment"] }} on <span class="news-date">{{ row["date_comment"] }}</span>
+                        </div>
+
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>There are no comments yet.</p>
+        {% endif %}
+    </div>
+
+    <h3>Bark your comment!</h3>
+    <form action="/article?id={{article['article_id']}}" method="post">
+        <div class="form-group">
+            <label for="title">Name</label>
+            <input autocomplete="off" autofocus class="form-control" name="name" type="text">
+        </div>
+        <div class="form-group">
+            <label for="text">Text</label>
+            <textarea autocomplete="off" autofocus class="form-control" name="text"></textarea>
+            <input type="hidden" name="article_id" value="{{article['article_id']}}" />
+        </div>
+        <button class="button" type="submit">Bark comment</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Main
+{% endblock %}
+
+{% block main %}
+    <h2 class="pagetitle">Welcome!</h2>
+    <p class="pageinfo">Feel free to bark your news! All dogs are friends here!
+    {% if articles %}
+        <ul class="news-list">
+            {% for row in articles %}
+                <li>
+                    <div class="news-wrapper">
+                        {% if row["image"] %}
+                            <a href='article?id={{row["article_id"]}}'>
+                                <img src='static/images/preview/preview_{{ row["image"] }}' alt={{ row["title"] }} />
+                            </a>
+                        {% endif %}
+
+                        <div class="news-inner">
+                            <div class="news-date">{{ row["date"] }}</div>
+                            <a href='article?id={{row["article_id"]}}' class="news-title"><h3>{{ row["title"] }}</h3></a>
+                        </div>
+                        <div class="news-author">by {{ row["username"] }}</div>
+                    </div>
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no categories yet.</p>
+    {% endif %}
+{% endblock %}

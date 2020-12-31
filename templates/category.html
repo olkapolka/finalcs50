@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    All barks for category {{categoryName}}
+{% endblock %}
+
+{% block main %}
+    <h2 class="pagetitle">All barks for category '{{categoryName}}'</h2>
+    {% if articles %}
+        <ul class="news-list">
+            {% for row in articles %}
+                 <li>
+                    <div class="news-wrapper">
+                        {% if row["image"] %}
+                            <a href='article?id={{row["article_id"]}}'>
+                                <img src='static/images/preview/preview_{{ row["image"] }}' alt={{ row["title"] }} />
+                            </a>
+                        {% endif %}
+
+                        <div class="news-inner">
+                            <div class="news-date">{{ row["date"] }}</div>
+                            <a href='article?id={{row["article_id"]}}' class="news-title"><h3>{{ row["title"] }}</h3></a>
+                        </div>
+                        <div class="news-author">by {{ row["username"] }}</div>
+                    </div>
+
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="categories">
+            Existing categories:
+            {% if currentCategories %}
+                <ul class="categories-list">
+                    {% for row in currentCategories %}
+                        <li><a href='category?id={{ row["category_id"] }}'>{{ row["category_title"] }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>There are no categories yet.</p>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>There are no categories yet.</p>
+    {% endif %}
+{% endblock %}

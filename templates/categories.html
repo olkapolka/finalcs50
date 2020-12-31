@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Categories
+{% endblock %}
+
+{% block main %}
+    {% if showMessage %}
+        <div class="alert" role="alert">New category is successfully added!</div>
+    {% endif %}
+
+    <h2 class="pagetitle">Bark new category here!</h2>
+
+    {% if userId %}
+        <form action="/categories" method="post">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input autocomplete="off" autofocus class="form-control" name="title" type="text">
+            </div>
+            <button class="button" type="submit">Bark new category</button>
+        </form>
+     {% else %}
+        <p>Please <a href="/register">register</a> or <a href="/login">login</a> to add new categories!</p>
+    {% endif %}
+
+    <div class="categories">
+        Existing categories:
+        {% if currentCategories %}
+            <ul class="categories-list">
+                {% for row in currentCategories %}
+                    <li><a href='category?id={{ row["category_id"] }}'>{{ row["category_title"] }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>There are no categories yet.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

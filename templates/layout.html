@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="/static/reset.css" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
+        <title>Barking news: {% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">
+                <img src="/static/images/logo.jpg" alt="Barking news logo" />
+                <div class="logo__text">Barking news</div>
+            </a>
+            <nav>
+                <ul class="navbar">
+                    <li class="nav-item"><a class="nav-link" href="/categories">Categories</a></li>
+
+                    {% if session.user_id %}
+                        <li class="nav-item"><a class="nav-link" href="/add-news">Add news</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/categories">Add category</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+
+                    {% else %}
+
+                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        <main class="container">
+            {% block main %}{% endblock %}
+        </main>
+        <footer>
+            <div class="container">
+                <div class="copyright">&copy; OlkaPolka, <span class="year">year</span></div>
+            </div>
+        </footer>
+        <script src="/static/scripts.js"></script>
+    </body>
+</html>
